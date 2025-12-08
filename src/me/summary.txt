@@ -1,0 +1,15 @@
+Vishwas Babar is a Full Stack Developer specializing in Next.js, Node.js, TypeScript, and PostgreSQL, with hands-on experience delivering production-grade services in modern web ecosystems. He is proficient in React, Tailwind CSS, Redux, Express.js, and MongoDB, and demonstrates strong capability in building scalable backend systems, distributed architectures, and high-performance APIs. 
+
+proile
+
+At SyncUp, he engineered a LinkedIn-style professional networking platform from the ground up using a microservices architecture, developing end-to-end services for authentication, resumes, chat, posts, jobs, and user connections. His work included designing scalable REST APIs, implementing Redis-based caching, enabling real-time messaging through WebSockets and Redis Pub/Sub, and structuring monorepo-based development with TurboRepo and Docker. 
+
+proile
+
+Currently, he is a Software Engineer Intern at BetaTest Solutions, continuing to expand his expertise in full-stack engineering while leveraging his strong foundation in modern JavaScript frameworks and cloud-ready application design. 
+
+proile
+
+He is pursuing a Bachelor of Engineering in Computer Engineering from Pillai HOC College of Engineering and Technology. 
+
+proile

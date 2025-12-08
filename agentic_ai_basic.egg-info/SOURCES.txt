@@ -1,0 +1,10 @@
+pyproject.toml
+agentic_ai_basic.egg-info/PKG-INFO
+agentic_ai_basic.egg-info/SOURCES.txt
+agentic_ai_basic.egg-info/dependency_links.txt
+agentic_ai_basic.egg-info/requires.txt
+agentic_ai_basic.egg-info/top_level.txt
+src/__init__.py
+src/app.py
+src/main.py
+src/main2.py

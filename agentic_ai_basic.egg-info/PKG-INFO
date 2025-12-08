@@ -1,0 +1,19 @@
+Metadata-Version: 2.4
+Name: agentic-ai-basic
+Version: 0.1.0
+Summary: Agentic AI practice
+Author: Vishwas Babar
+Requires-Python: >=3.9
+Requires-Dist: google>=3.0.0
+Requires-Dist: google-genai>=1.47.0
+Requires-Dist: google-generativeai>=0.8.5
+Requires-Dist: gradio>=3.36.1
+Requires-Dist: ipython>=8.18.1
+Requires-Dist: openai>=2.9.0
+Requires-Dist: pypdf2>=3.0.1
+Requires-Dist: python-dotenv
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0; extra == "dev"
+Requires-Dist: black>=22.0; extra == "dev"
+Requires-Dist: ruff>=0.1.0; extra == "dev"
+Requires-Dist: mypy>=1.0; extra == "dev"
