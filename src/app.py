@@ -5,10 +5,13 @@ from PyPDF2 import PdfReader
 import gradio as gr
 from pydantic import BaseModel
 from pprint import pprint
+from tools import tools, handle_tool_call
+
 
 class Evaluation(BaseModel):
     is_acceptable: bool
     feedback: str
+
 
 load_dotenv(override=True)
 gemini_key = os.getenv('GEMINI_API_KEY')
@@ -37,7 +40,8 @@ particularly questions related to {name}'s career, background, skills and experi
 Your responsibility is to represent {name} for interactions on the website as faithfully as possible. \
 You are given a summary of {name}'s background and LinkedIn profile which you can use to answer questions. \
 Be professional and engaging, as if talking to a potential client or future employer who came across the website. \
-If you don't know the answer, say so."
+If you don't know the answer to any question, use your record_unknown_question tool to record the question that you couldn't answer, even if it's about something trivial or unrelated to career. \
+If the user is engaging in discussion, try to steer them towards getting in touch via email; ask for their email and record it using your record_user_details tool. "
 
 system_prompt += f"\n\n## Summary:\n{summary}\n\n## LinkedIn Profile:\n{linkedin}\n\n"
 system_prompt += f"With this context, please chat with the user, always staying in character as {name}."
@@ -99,10 +103,28 @@ def rerun(reply, message, history, feedback):
     ]
     # reattempt
     response = openai.chat.completions.create(
-        model=model_name, messages=messages)
+        model=model_name, messages=messages, tools=tools)
     return response.choices[0].message.content
 
 
+def handleToolCalling(messages):
+    done_tool_calling = False
+    while not done_tool_calling:
+        res = openai.chat.completions.create(
+            model=model_name, messages=messages, tools=tools)
+        finish_reason = res.choices[0].finish_reason
+
+        # if finish reason is the tool_calls then call handle tool function
+        if finish_reason == 'tool_calls':
+            message = res.choices[0].message
+            tool_calls = message.tool_calls
+            results = handle_tool_call(tool_calls=tool_calls)
+            messages.append(message)
+            messages.extend(results)
+        else:
+            done_tool_calling = True
+
+    return res.choices[0].message.content
 
 
 def chat(message, history):
@@ -115,8 +137,8 @@ def chat(message, history):
         "content": message
     }]
 
-    res = openai.chat.completions.create(model=model_name, messages=messages)
-    firstReply = res.choices[0].message.content
+    # first do the tool calling if its finish_reason is tool_calls
+    firstReply = handleToolCalling(messages=messages)
 
     attemtCount = 1
     check_passed = False
